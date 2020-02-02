@@ -24,11 +24,7 @@ var blogSchema = new mongoose.Schema({
 });
 var Blog = mongoose.model("Blog", blogSchema);
 
-Blog.create({
-    title: "Test Blog",
-    image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80",
-    body: "This is a blog."
-});
+
 //RESTFUL ROUTES
 app.get("/", function(req, res){
     res.redirect("/blogs");
@@ -89,6 +85,17 @@ app.put("/blogs/:id", function(req, res){
             res.redirect("/blogs");
         }else {
             res.redirect("/blogs/" + req.params.id);
+        }
+    });
+});
+
+//DESTROY ROUTE
+app.delete("/blogs/:id", function(req, res){
+    Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/blogs");
+        } else {
+            res.redirect("/blogs");
         }
     });
 });
